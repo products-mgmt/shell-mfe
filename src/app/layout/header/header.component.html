@@ -1,0 +1,18 @@
+<header class="header">
+
+  <div class="logo">
+    <h2>E-Commerce</h2>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/auth" routerLinkActive="active">Login</a>
+  </nav>
+
+  <div class="user-section">
+    <span *ngIf="userName">Hi, {{ userName }}</span>
+    <button *ngIf="!userName" routerLink="/auth">Login</button>
+    <button *ngIf="userName" (click)="logout()">Logout</button>
+  </div>
+
+</header>

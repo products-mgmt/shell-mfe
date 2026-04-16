@@ -3,16 +3,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
 
-/*
-export const routes: Routes = [
-  {  path: '', component: LayoutComponent}
-];*/
-
 export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
+
       {
         path: 'products',
         loadChildren: () =>
@@ -22,11 +18,10 @@ export const routes: Routes = [
             exposedModule: './ProductModule',
           })
             .then(m => m.ProductModule)
-            .catch(() => {
-              console.log('Loading fallback module');
-              return import('./pages/fallback/fallback.module')
-                .then(m => m.FallbackModule);
-            }),
+            .catch(() =>
+              import('./pages/fallback/fallback.module')
+                .then(m => m.FallbackModule)
+            ),
       },
 
       {
@@ -35,7 +30,7 @@ export const routes: Routes = [
           loadRemoteModule({
             type: 'module',
             remoteEntry: 'http://localhost:4202/remoteEntry.js',
-            exposedModule: './Module',
+            exposedModule: './AuthModule',
           })
             .then(m => m.AuthModule)
             .catch(() =>
@@ -44,15 +39,15 @@ export const routes: Routes = [
             ),
       },
 
+      // ✅ DEFAULT → AUTH
       {
         path: '',
-        redirectTo: 'products',
+        redirectTo: 'auth',
         pathMatch: 'full'
       }
 
     ]
   }
-
 ];
 
 @NgModule({
